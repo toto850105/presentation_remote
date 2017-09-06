@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Presentation Remote</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+            background-color: #F5F7FA;
+        }
+        
+        h1 {
+            color: blacks;
+            text-align: center;
+        }
+        
+        .row {
+            margin-left: 5%;
+            margin-right: 5%;
+            width: 90%;
+            /*height: 60%;*/
+            display: flex;
+            justify-content: center;
+        }
+        
+        .row div {
+            float: left;
+            width: 33vh;
+            height: 17vh;
+            /*padding: 2%;*/
+            /*border: 1px solid red;*/
+            /*margin-left: auto;*/
+        }
+        
+        .row div button {
+            font-size: 20px;
+            background-color: #4FC1E9;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .two_row {
+            margin-left: 20%;
+            margin-right: 20%;
+            margin-top: 20px;
+            width: 60%;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .two_row div {
+            float: left;
+            margin-left: 10px;
+            width: 33vh;
+            height: 20vh;
+        }
+        
+        .two_row div button {
+            font-size: 20px;
+            background-color: #4FC1E9;
+            width: 100%;
+            height: 100%;
+        }
+        
+        @media screen and (min-width:768px) {
+            body {
+                background-color: #F5F7FA;
+            }
+            h1 {
+                color: blacks;
+                text-align: center;
+            }
+            .row {
+                margin-left: 20%;
+                margin-right: 20%;
+                width: 60%;
+                display: flex;
+                justify-content: center;
+            }
+            .row div {
+                float: left;
+                width: 100px;
+                height: 100px;
+                /*padding: 2%;*/
+                /*border: 1px solid red;*/
+                /*margin-left: auto;*/
+            }
+            .row div button {
+                font-size: 20px;
+                background-color: #4FC1E9;
+                width: 100%;
+                height: 100%;
+            }
+            .two_row {
+                margin-left: 20%;
+                margin-right: 20%;
+                margin-top: 20px;
+                width: 60%;
+                display: flex;
+                justify-content: center;
+            }
+            .two_row div {
+                float: left;
+                margin-left: 30px;
+                width: 33vh;
+                height: 20vh;
+            }
+            .two_row div button {
+                font-size: 20px;
+                background-color: #4FC1E9;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="font-size:24px">Presentation Remote</h1>
+    <div style="width:100%;float:left;margin-left:10px;margin-left: 20%;margin-right: 20%;">
+        <form>
+            <span style="width:60%" id="channel_id">Your channel is : ---- </span>
+            <input id="my_channel" type="text" style="width:40vh;margin-left:15px;margin-right:15px" name="my_channel">
+            <input type="button" onclick="set_channel()" style="width:25vh;" value="提交" />
+        </form>
+    </div>
+    <div>
+        <div class="row">
+            <div></div>
+            <div id="up"><button>Up</button></div>
+            <div></div>
+        </div>
+        <div class="row">
+            <div><button id="left">Left</button></div>
+            <div><button id="init">Enter</button></div>
+            <div><button id="right">Right</button></div>
+        </div>
+        <div class="row">
+            <div></div>
+            <div><button id="down">Down</button></div>
+            <div></div>
+        </div>
+        <div class="two_row">
+            <div><button id="esc">ESC</button></div>
+            <div><button id="full">Full Screen</button></div>
+        </div>
+    </div>
+
+
+    <script>
+        var channelnum = 0;
+        var channelid = "channel";
+        var url = "/post";
+        var cc = "channel";
+
+        function set_channel() {
+            channelnum = $("#my_channel").val();
+            channelid = "channel" + String(channelnum)
+            $("#channel_id").html("Your channel is : " + channelnum);
+        }
+
+        $("#init").click(function() {
+            $.post(url, {
+                "data": "enter",
+                "channel": channelid
+            });
+        });
+
+        $("#up").click(function() {
+            $.post(url, {
+                "data": "up",
+                "channel": channelid
+            });
+        });
+
+        $("#down").click(function() {
+            $.post(url, {
+                "data": "down",
+                "channel": channelid
+            });
+        });
+
+        $("#left").click(function() {
+            $.post(url, {
+                "data": "left",
+                "channel": channelid
+            });
+        });
+
+        $("#right").click(function() {
+            $.post(url, {
+                "data": "right",
+                "channel": channelid
+            });
+        });
+
+        $("#esc").click(function() {
+            $.post(url, {
+                "data": "esc",
+                "channel": channelid
+            });
+        });
+
+        $("#full").click(function() {
+            $.post(url, {
+                "data": "f",
+                "channel": channelid
+            });
+        });
+    </script>
+</body>
+
+</html>
